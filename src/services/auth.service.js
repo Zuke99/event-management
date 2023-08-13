@@ -13,17 +13,18 @@ const register = (role,name, username, email, password) => {
   };
 
   const login = (email, password) => {
-    return axios
-      .post(API_URL + "login", {
+     return  axios
+      .post  (API_URL + "login", {
         email,
         password,
       })
-      .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+      .then( (response) => {
+        console.log("auth.service",response);
+        if (response.data.data.data.token) {
+           localStorage.setItem("user", JSON.stringify(response.data.data.data));
         }
   
-        return response.data;
+        return response.data.data;
       });
   };
   const logout = () => {

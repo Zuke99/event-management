@@ -66,9 +66,9 @@ import {
           payload: { user: data },
           
         });
-        console.log("Logged in", data);
         return Promise.resolve();
       } else {
+        
         const message =data.msg;
        
   

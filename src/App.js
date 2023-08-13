@@ -6,12 +6,22 @@ import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import { useState } from 'react';
 
 
 
 
 function App() {
-
+  const [loginVisibility, setLoginVisibility] = useState(false);
+  const closeLogin =()=>{
+    
+    if(loginVisibility){
+     setLoginVisibility(false);
+    } else 
+    {
+     setLoginVisibility(true);
+    }
+   }
 
   return (
     <>
@@ -19,7 +29,7 @@ function App() {
    <Routes>
    <Route path="/" element={<Home/>}/>
    <Route path="/about" element={<About/>}/>
-   <Route path="/login" element={<Login/>}/>
+   <Route path="/login" element={<Login closeLogin={closeLogin}/>}/>
    <Route path="/signup" element={<Signup/>}/>
    </Routes>
   
