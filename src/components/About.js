@@ -23,10 +23,10 @@ const About = () => {
       <p>
         <strong>Email:</strong> {currentUser.email}
       </p>
-      <strong>Authorities:</strong>
-      <ul>
-        {currentUser.role}
-      </ul>
+      <strong>Authorities:</strong> {currentUser.role}
+      
+       
+    
     </div>
   );
 };

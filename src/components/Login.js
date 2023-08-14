@@ -43,6 +43,7 @@ function Login(props) {
   const popupCloseHandler = (e) => {
     setVisibility(e);
     props.closeLogin();
+    
   };
 
   const onChangeEmail = (e) => {

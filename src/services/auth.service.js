@@ -19,7 +19,7 @@ const register = (role,name, username, email, password) => {
         password,
       })
       .then( (response) => {
-        console.log("auth.service",response);
+
         if (response.data.data.data.token) {
            localStorage.setItem("user", JSON.stringify(response.data.data.data));
         }

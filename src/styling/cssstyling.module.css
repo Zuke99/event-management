@@ -35,6 +35,8 @@
     width: 100%; /* Let the button size itself based on its content */
     padding: 10px 20px; /* Adjust padding as needed */
     margin-top: 10px;
+    
+
   }
   .heading{
     margin-bottom: 30px ;
@@ -71,3 +73,162 @@
     text-align: center; /* Center the text */
     height: 10px;
   }  
+
+  .custom-navbar {
+    background-color: white;
+  }
+  /* Define styles for the "Home" link */
+  
+
+  /* Style for the buttons */
+.nav-item button {
+  border: 2px solid #7C4DFF;
+  border-radius: 20px;
+  background-color: transparent;
+  padding: 2px 5px;
+  margin-right: 10px;
+  color: #7C4DFF;
+  cursor: pointer;
+  width: 80px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Style for button hover */
+.nav-item button:hover {
+  background-color:#7C4DFF;
+  color: white;
+}
+
+.category-div {
+  display: flex;
+  justify-content: center;
+}
+
+.category-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center items horizontally within each row */
+  gap: 20px;
+}
+
+.category-item-div {
+  width: calc(25% - 20px); /* Four items with 20px gap */
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.center-container {
+  margin-top: 1%;
+  display: flex;
+  justify-content: center; 
+  height: 10vh;/* Adjust this to control vertical centering */
+}
+
+
+
+.img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.img-banner{
+  width: 100%;
+  height: 500px;
+}
+
+
+/*CARD*/
+.movie-card {
+ 
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.movie-image-container {
+  position: relative;
+  height: 400px;
+}
+
+.movie-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay:hover {
+  opacity: 1;
+}
+
+.book-button {
+  background-color: #e20074;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.movie-details {
+  padding: 20px;
+}
+
+.movie-title {
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+}
+
+.movie-info {
+  font-size: 0.9rem;
+  margin: 0 0 5px 0;
+}
+
+.movie-description {
+  font-size: 0.85rem;
+  padding: 20px;
+  color: #666;
+}
+.card-container {
+
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 20px;
+max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.single-card {
+
+  flex: 1;
+  min-width: calc(25% - 20px); /* 25% width for each card with a 20px gap */
+  max-width: calc(25% - 20px); /* Set a max-width to prevent infinite expansion */
+  /* Other styles for spacing, border, etc. */
+}
+
+
+
