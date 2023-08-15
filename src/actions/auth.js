@@ -60,18 +60,15 @@ import {
   export const login = (email, password) => (dispatch) => {
     return AuthService.login(email, password).then(
       (data) => {
-        if(!data.success === false){
+        if(!data.data.success === false){
         dispatch({
           type: LOGIN_SUCCESS,
           payload: { user: data },
-          
+         
         });
         return Promise.resolve();
       } else {
-        
-        const message =data.msg;
-       
-  
+        const message =data.data.msg;
         dispatch({
           type: LOGIN_FAIL,
         });
@@ -80,7 +77,8 @@ import {
           type: SET_MESSAGE,
           payload: message,
         });
-        return Promise.reject(data.msg);
+        
+        return Promise.reject(data.data.msg);
       }
       },
       (error) => {
@@ -95,7 +93,6 @@ import {
           type: SET_MESSAGE,
           payload: message,
         });
-  
         return Promise.reject(message);
       }
     );
