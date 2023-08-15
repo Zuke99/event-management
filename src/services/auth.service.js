@@ -12,19 +12,17 @@ const register = (role,name, username, email, password) => {
     });
   };
 
-  const login = (email, password) => {
-     return  axios
+  const login = async (email, password) => {
+     return  await axios
       .post  (API_URL + "login", {
         email,
         password,
       })
       .then( (response) => {
-
-        if (response.data.data.data.token) {
-           localStorage.setItem("user", JSON.stringify(response.data.data.data));
-        }
-  
-        return response.data.data;
+         if (response.data.success === true) {
+            localStorage.setItem("user", JSON.stringify(response.data.data.data));
+         }
+        return response;
       });
   };
   const logout = () => {

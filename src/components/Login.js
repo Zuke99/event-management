@@ -8,7 +8,7 @@ import CheckButton from "react-validation/build/button";
 import logo from "../assets/login-logo.png";
 import style from "../styling/cssstyling.module.css"
 import { login } from "../actions/auth";
-
+import { CLEAR_MESSAGE } from "../actions/type";
 
 
 
@@ -25,8 +25,11 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
 
   const { isLoggedIn } = useSelector(state => state.auth);
+ 
   const { message } = useSelector(state => state.message);
+
   
+ 
 
   const dispatch = useDispatch();
   const required = (value ) =>{
@@ -42,6 +45,9 @@ function Login(props) {
 
   const popupCloseHandler = (e) => {
     setVisibility(e);
+    dispatch({
+      type: CLEAR_MESSAGE
+    })
     props.closeLogin();
     
   };
@@ -66,7 +72,7 @@ function Login(props) {
       dispatch(login(email, password))
       .then(() =>{
         navigate("/about");
-        window.location.reload();
+       window.location.reload();
       })
       .catch(() => {
         setLoading(false);
@@ -131,16 +137,19 @@ function Login(props) {
             </button>
           </div>
 
-          {message && (
+         
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+      
+        </Form>
+      
+      </div>
+      {message && (
             <div className="form-group">
               <div className={style['alert']} role="alert">
                 {message}
               </div>
             </div>
           )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-      </div>
     </div>
       </CustomPopup>
     </div>

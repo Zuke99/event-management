@@ -70,9 +70,9 @@ function Navbar() {
         <li className={`nav-item ${isHomePage ? 'active' : ''}`}>
           <Link className={`nav-link ${isHomePage ? 'font-weight-bold home-link' : 'home-link'}`} to="/">Home</Link>
         </li>
-        <li className={`nav-item ${isAboutPage ? 'active' : ''}`}>
+        {loggedIn && <li className={`nav-item ${isAboutPage ? 'active' : ''}`}>
           <Link className={`nav-link ${isAboutPage ? 'font-weight-bold' : ''}`} to="/about">About</Link>
-        </li>
+        </li>}
       </ul>
     </div>
     
