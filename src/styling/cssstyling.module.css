@@ -74,28 +74,26 @@
   height: 10px;
 }
 
+/* Update the styles to match Spotify's look and feel */
 .custom-navbar {
-  background-color: white;
+  background-color: #333;
 }
-/* Define styles for the "Home" link */
 
 /* Style for the buttons */
-.nav-item button {
-  border: 2px solid #7c4dff;
-  border-radius: 20px;
-  background-color: transparent;
-  padding: 2px 5px;
+.nav-button {
+  border: none;
+  border-radius: 50px;
+  background-color: #1db954;
+  padding: 8px 20px;
   margin-right: 10px;
-  color: #7c4dff;
+  color: white;
   cursor: pointer;
-  width: 80px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s;
 }
 
 /* Style for button hover */
-.nav-item button:hover {
-  background-color: #7c4dff;
-  color: white;
+.nav-button:hover {
+  background-color: #1ed760;
 }
 
 .category-div {
