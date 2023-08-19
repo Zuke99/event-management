@@ -1,0 +1,50 @@
+/* about-config.module.css */
+
+.container {
+  background-color: #f8f8f8;
+}
+
+.jumbotron {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.jumbotron h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.jumbotron h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.row {
+  margin-bottom: 15px;
+}
+
+.row td {
+  padding: 10px 0;
+  vertical-align: top;
+}
+
+.row td:first-child {
+  width: 30%;
+  font-weight: bold;
+  color: #6a6a6a;
+}
+
+.row td:last-child {
+  color: #000000;
+}

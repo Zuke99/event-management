@@ -1,6 +1,7 @@
 import React from "react";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import style from "../styling/about-config.module.css";
 
 const About = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -10,23 +11,33 @@ const About = () => {
   }
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>
-          <strong>{currentUser.username}'s</strong> Profile
-        </h3>
+    <div className={style.container}>
+      <header className={style.jumbotron}>
+        <h1>Account Overview</h1>
+        <h3>Profile</h3>
+        <div className={style.table}>
+          <table>
+            <tbody>
+              <tr className={style.row}>
+                <td>Username:</td>
+                <td>{currentUser.username}</td>
+              </tr>
+              <tr className={style.row}>
+                <td>Id:</td>
+                <td>{currentUser._id}</td>
+              </tr>
+              <tr className={style.row}>
+                <td>Email:</td>
+                <td>{currentUser.email}</td>
+              </tr>
+              <tr className={style.row}>
+                <td>Authorities:</td>
+                <td>{currentUser.role}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </header>
- 
-      <p>
-        <strong>Id:</strong> {currentUser._id}
-      </p>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
-      <strong>Authorities:</strong> {currentUser.role}
-      
-       
-    
     </div>
   );
 };

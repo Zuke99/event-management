@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { logout } from "../actions/auth";
 import style from "../styling/cssstyling.module.css";
-import "../styling/cssstyling.module.css";
 
 const { isLoggedIn } = userService;
 
