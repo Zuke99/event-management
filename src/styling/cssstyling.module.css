@@ -84,9 +84,9 @@
 .nav-button {
   background-image: linear-gradient(
     to right,
-    #1fa2ff 0%,
-    #12d8fa 51%,
-    #1fa2ff 100%
+    #4caf50 0%,
+    #03f924 51%,
+    #4caf50 100%
   );
   margin: 10px;
   padding: 8px 20px;
@@ -231,4 +231,7 @@
     25% - 20px
   ); /* Set a max-width to prevent infinite expansion */
   /* Other styles for spacing, border, etc. */
+}
+
+.nav-button-2 {
 }

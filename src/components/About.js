@@ -39,6 +39,18 @@ const About = () => {
             </tbody>
           </table>
         </div>
+        <div className={style.cardContent}>
+          <table className={style.table}>
+            <tbody>{/* Display user information */}</tbody>
+          </table>
+          {/* Add the "Change Password" button */}
+          <button
+            className={`${style.button} ${style.row}`}
+            // onClick={handleChangePassword}
+          >
+            Change Password
+          </button>
+        </div>
       </div>
     </div>
   );
