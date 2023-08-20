@@ -12,11 +12,13 @@ const About = () => {
 
   return (
     <div className={style.container}>
-      <header className={style.jumbotron}>
-        <h1>Account Overview</h1>
-        <h3>Profile</h3>
-        <div className={style.table}>
-          <table>
+      <div className={style.card}>
+        <header className={style.cardHeader}>
+          <h1>Account Overview</h1>
+          <h3>Profile</h3>
+        </header>
+        <div className={style.cardContent}>
+          <table className={style.table}>
             <tbody>
               <tr className={style.row}>
                 <td>Username:</td>
@@ -37,7 +39,7 @@ const About = () => {
             </tbody>
           </table>
         </div>
-      </header>
+      </div>
     </div>
   );
 };

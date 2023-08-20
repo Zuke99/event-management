@@ -49,7 +49,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg custom-navbar">
+      <nav className={"navbar navbar-expand-lg custom-navbar"}>
         <Link className="navbar-brand pl-3" to="/">
           <strong>Event Management</strong>
         </Link>

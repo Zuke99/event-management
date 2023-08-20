@@ -1,32 +1,68 @@
 /* about-config.module.css */
-
 .container {
-  background-color: #f8f8f8;
+  background-color: rgba(59, 130, 246, 0.5);
+  animation: fadeIn 0.8s ease-out; /* Adjust animation timing and easing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.jumbotron {
-  background-color: #ffffff;
-  padding: 30px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* Increased initial translateY */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Increased shadow for a smoother transition */
   width: 80%;
   max-width: 800px;
   margin: 40px auto;
+  animation: fadeInCard 0.5s ease-out; /* Adjust animation timing and easing */
 }
 
-.jumbotron h1 {
-  font-size: 32px;
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(-5px); /* Increased initial translateY */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardHeader {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.cardHeader h1 {
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
-.jumbotron h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
+.cardHeader h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.cardContent {
+  padding: 20px;
 }
 
 .table {
   width: 100%;
-  margin-top: 20px;
   border-collapse: collapse;
 }
 
