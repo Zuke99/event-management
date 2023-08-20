@@ -40,10 +40,12 @@ const About = () => {
           </table>
         </div>
         <div className={style.cardContent}>
-          <table className={style.table}>
-            <tbody>{/* Display user information */}</tbody>
-          </table>
-          {/* Add the "Change Password" button */}
+          <button
+            className={`${style.button} ${style.row}`}
+            // onClick={handleChangeEmail}
+          >
+            Change Email
+          </button>
           <button
             className={`${style.button} ${style.row}`}
             // onClick={handleChangePassword}

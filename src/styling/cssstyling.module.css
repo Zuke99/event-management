@@ -80,28 +80,22 @@
   background-color: #f4f4f4;
 }
 
-/* New Nav Buttons [Test] */
 .nav-button {
-  background-image: linear-gradient(
-    to right,
-    #4caf50 0%,
-    #03f924 51%,
-    #4caf50 100%
-  );
-  margin: 10px;
+  background-color: #4caf50;
+  margin: 8px;
   padding: 8px 20px;
   text-align: center;
   text-transform: uppercase;
-  transition: 0.5s;
+  transition: background-position 0.5s, color 0.5s; /* Combine transitions */
   background-size: 200% auto;
   color: white;
-  box-shadow: 0 0 20px #eee;
+  box-shadow: 0 0 20px #ffffff;
   border-radius: 10px;
   display: block;
 }
 
 .nav-button:hover {
-  background-position: right center; /* change the direction of the change here */
+  background-position: right center;
   color: #fff;
   text-decoration: none;
 }
