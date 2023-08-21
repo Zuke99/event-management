@@ -75,31 +75,6 @@
   height: 10px;
 }
 
-/* Update the styles to match Spotify's look and feel */
-.navbar .custom-navbar {
-  background-color: #f4f4f4;
-}
-
-.nav-button {
-  background-color: #4caf50;
-  margin: 8px;
-  padding: 8px 20px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: background-position 0.5s, color 0.5s; /* Combine transitions */
-  background-size: 200% auto;
-  color: white;
-  box-shadow: 0 0 20px #ffffff;
-  border-radius: 10px;
-  display: block;
-}
-
-.nav-button:hover {
-  background-position: right center;
-  color: #fff;
-  text-decoration: none;
-}
-
 .category-div {
   display: flex;
   justify-content: center;
