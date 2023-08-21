@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -6,7 +6,7 @@ import userService from "../services/user.service";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { logout } from "../actions/auth";
-import style from "../styling/cssstyling.module.css";
+import style from "../styling/navbar.module.css";
 
 const { isLoggedIn } = userService;
 
@@ -48,68 +48,52 @@ function Navbar() {
   };
 
   return (
-    <>
-      <nav className={"navbar navbar-expand-lg custom-navbar"}>
-        <Link className="navbar-brand pl-3" to="/">
-          <strong>Event Management</strong>
-        </Link>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mx-auto">
-            <li className={`nav-item ${isHomePage ? "active" : ""}`}>
-              <Link
-                className={`nav-link ${
-                  isHomePage ? "font-weight-bold home-link" : "home-link"
-                }`}
-                to="/"
-              >
-                Home
-              </Link>
-            </li>
-            {loggedIn && (
-              <li className={`nav-item ${isAboutPage ? "active" : ""}`}>
-                <Link
-                  className={`nav-link ${
-                    isAboutPage ? "font-weight-bold" : ""
-                  }`}
-                  to="/about"
-                >
-                  About
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
-        {/* Right-aligned links */}
-        <div className="ml-auto">
-          <ul className="navbar-nav">
-            {!loggedIn && (
-              <li className={style["nav-item"]}>
-                <button className={style["nav-button"]} onClick={closeLogin}>
-                  Login
-                </button>
-              </li>
-            )}
-            {!loggedIn && (
-              <li className={style["nav-item"]}>
-                <button className={style["nav-button"]} onClick={closeSignup}>
-                  Sign Up
-                </button>
-              </li>
-            )}
-            {loggedIn && (
-              <li className={style["nav-item"]}>
-                <button className={style["nav-button"]} onClick={handleLogOut}>
-                  Logout
-                </button>
-              </li>
-            )}
-          </ul>
-        </div>
-      </nav>
-
+    <nav className={style["navbar"]}>
+      <div className={style["navbar-heading"]}>event management</div>
+      <ul className={style["navbar-items"]}>
+        <li>
+          <Link
+            to="/"
+            className={`${style["navbar-item"]} ${
+              isHomePage ? style["active"] : ""
+            }`}
+          >
+            Home
+          </Link>
+        </li>
+        {loggedIn && (
+          <li>
+            <Link
+              to="/about"
+              className={`${style["navbar-item"]} ${
+                isAboutPage ? style["active"] : ""
+              }`}
+            >
+              About
+            </Link>
+          </li>
+        )}
+      </ul>
+      <div className={style["nav-buttons"]}>
+        {!loggedIn && (
+          <button className={style["nav-button"]} onClick={closeLogin}>
+            Login
+          </button>
+        )}
+        {!loggedIn && (
+          <button className={style["nav-button"]} onClick={closeSignup}>
+            Sign Up
+          </button>
+        )}
+        {loggedIn && (
+          <button className={style["nav-button"]} onClick={handleLogOut}>
+            Logout
+          </button>
+        )}
+      </div>
       {loginVisibility && <Login closeLogin={closeLogin} />}
       {signupVisibility && <Signup closeSignup={closeSignup} />}
-    </>
+    </nav>
   );
 }
 

@@ -220,9 +220,6 @@
 
 .single-card {
   flex: 1;
-  min-width: calc(25% - 20px); /* 25% width for each card with a 20px gap */
-  max-width: calc(
-    25% - 20px
-  ); /* Set a max-width to prevent infinite expansion */
-  /* Other styles for spacing, border, etc. */
+  min-width: calc(25% - 20px);
+  max-width: calc(25% - 20px);
 }
