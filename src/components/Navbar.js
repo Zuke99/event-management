@@ -14,9 +14,11 @@ function Navbar() {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isAboutPage = location.pathname === "/about";
+  const isCreateEventsPage = location.pathname ==='/create-event';
   const [loginVisibility, setLoginVisibility] = useState(false);
   const [signupVisibility, setSignupVisibility] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+ 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,6 +75,19 @@ function Navbar() {
             </Link>
           </li>
         )}
+
+          {loggedIn && (
+          <li>
+            <Link
+              to="/create-event"
+              className={`${style["navbar-item"]} ${
+                isCreateEventsPage ? style["active"] : ""
+              }`}
+            >
+              Create Event
+            </Link>
+          </li>
+        )}
       </ul>
       <div className={style["nav-buttons"]}>
         {!loggedIn && (
@@ -93,8 +108,11 @@ function Navbar() {
       </div>
       {loginVisibility && <Login closeLogin={closeLogin} />}
       {signupVisibility && <Signup closeSignup={closeSignup} />}
+    
     </nav>
-  );
+
+  )
+  
 }
 
 export default Navbar;
