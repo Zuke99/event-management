@@ -1,21 +1,19 @@
-
-import { useState } from 'react';
-import { Link } from 'react-router-dom'
-import Login from './Login';
-import Signup from './Signup';
-import userService from "../services/user.service"
-import { useDispatch} from 'react-redux';
-import {  useNavigate, useLocation  } from 'react-router-dom';
-import {logout} from '../actions/auth';
-import style from "../styling/cssstyling.module.css"
-import "../styling/cssstyling.module.css";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Login from "./Login";
+import Signup from "./Signup";
+import userService from "../services/user.service";
+import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { logout } from "../actions/auth";
+import style from "../styling/navbar.module.css";
 
 const { isLoggedIn } = userService;
-function Navbar() {
 
+function Navbar() {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
-  const isAboutPage = location.pathname ==='/about';
+  const isHomePage = location.pathname === "/";
+  const isAboutPage = location.pathname === "/about";
   const isCreateEventsPage = location.pathname ==='/create-event';
   const [loginVisibility, setLoginVisibility] = useState(false);
   const [signupVisibility, setSignupVisibility] = useState(false);
@@ -23,89 +21,98 @@ function Navbar() {
  
 
   const dispatch = useDispatch();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
-  
+  useEffect(() => {
+    isLoggedIn()
+      .then((response) => {
+        if (response.data.status === true) {
+          setLoggedIn(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
 
-  isLoggedIn()
-  .then((response) => {
-    if(response.data.status === true){
-      setLoggedIn(true);
-    } 
-
-  })
-  .catch((error) => {
-    console.error("Error fetching admin data:", error);
-  });
-  const handleLogOut = () =>{
-    dispatch(logout())
+  const handleLogOut = () => {
+    dispatch(logout());
     navigate("/");
     window.location.reload();
-   
-  }
+  };
 
-  const closeSignup= () =>{
-    if(signupVisibility){
-      setSignupVisibility(false);
-    } else {
-      setSignupVisibility(true);
-    }
-  }
-  const closeLogin =()=>{
-   if(loginVisibility){
-    setLoginVisibility(false);
-   } else {
-    setLoginVisibility(true);
-   }
-  }
- 
+  const closeSignup = () => {
+    setSignupVisibility(!signupVisibility);
+  };
+
+  const closeLogin = () => {
+    setLoginVisibility(!loginVisibility);
+  };
+
   return (
-    <>
-    <nav className="navbar navbar-expand-lg  custom-navbar">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a className="navbar-brand pl-3" href="/"><strong>Event Management</strong></a>
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav mx-auto">
-        <li className={`nav-item ${isHomePage ? 'active' : ''}`}>
-          <Link className={`nav-link  ${isHomePage ? 'active' : 'home-link'}`} to="/">Home</Link>
+    <nav className={style["navbar"]}>
+      <div className={style["navbar-heading"]}>event management</div>
+      <ul className={style["navbar-items"]}>
+        <li>
+          <Link
+            to="/"
+            className={`${style["navbar-item"]} ${
+              isHomePage ? style["active"] : ""
+            }`}
+          >
+            Home
+          </Link>
         </li>
-        {loggedIn && <li className={`nav-item ${isAboutPage ? 'active' : ''}`}>
-          <Link className={`nav-link  ${isAboutPage ? 'font-weight-bold' : ''}`} to="/about">About</Link>
-        </li>}
-        {loggedIn && <li className={`nav-item ${isCreateEventsPage ? 'active' : ''}`}>
-          <Link className={`nav-link  ${isCreateEventsPage ? 'font-weight-bold' : ''}`} to="/create-event">Create Event</Link>
-        </li>}
+        {loggedIn && (
+          <li>
+            <Link
+              to="/about"
+              className={`${style["navbar-item"]} ${
+                isAboutPage ? style["active"] : ""
+              }`}
+            >
+              About
+            </Link>
+          </li>
+        )}
+
+          {loggedIn && (
+          <li>
+            <Link
+              to="/create-event"
+              className={`${style["navbar-item"]} ${
+                isCreateEventsPage ? style["active"] : ""
+              }`}
+            >
+              Create Event
+            </Link>
+          </li>
+        )}
       </ul>
-    </div>
+      <div className={style["nav-buttons"]}>
+        {!loggedIn && (
+          <button className={style["nav-button"]} onClick={closeLogin}>
+            Login
+          </button>
+        )}
+        {!loggedIn && (
+          <button className={style["nav-button"]} onClick={closeSignup}>
+            Sign Up
+          </button>
+        )}
+        {loggedIn && (
+          <button className={style["nav-button"]} onClick={handleLogOut}>
+            Logout
+          </button>
+        )}
+      </div>
+      {loginVisibility && <Login closeLogin={closeLogin} />}
+      {signupVisibility && <Signup closeSignup={closeSignup} />}
     
-    {/* Right-aligned links */}
-    <div className="ml-auto">
-      <ul className="navbar-nav">
-        {!loggedIn && <li className={style["nav-item"]}>
-        <button onClick={(e) => setLoginVisibility(!loginVisibility)}>Login</button>
-        </li>}
-        {!loggedIn && <li className={style["nav-item"]}>
-        <button onClick={(e) => setSignupVisibility(!signupVisibility)}>SignUp</button>
-        </li>}
-        {loggedIn && <li className={style["nav-item"]}>
-        <button onClick={handleLogOut}>LogOut</button>
-        </li>}
-      </ul>
-    </div>
-  </nav>
-  
-   { loginVisibility && <Login closeLogin={closeLogin}></Login>}
-   { signupVisibility && <Signup closeSignup={closeSignup}></Signup>}
-
-
-  </>
-  
-
+    </nav>
 
   )
+  
 }
 
-export default Navbar
+export default Navbar;
