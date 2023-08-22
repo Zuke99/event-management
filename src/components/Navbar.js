@@ -16,9 +16,11 @@ function Navbar() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const isAboutPage = location.pathname ==='/about';
+  const isCreateEventsPage = location.pathname ==='/create-event';
   const [loginVisibility, setLoginVisibility] = useState(false);
   const [signupVisibility, setSignupVisibility] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+ 
 
   const dispatch = useDispatch();
   const navigate= useNavigate();
@@ -68,10 +70,13 @@ function Navbar() {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mx-auto">
         <li className={`nav-item ${isHomePage ? 'active' : ''}`}>
-          <Link className={`nav-link ${isHomePage ? 'font-weight-bold home-link' : 'home-link'}`} to="/">Home</Link>
+          <Link className={`nav-link  ${isHomePage ? 'active' : 'home-link'}`} to="/">Home</Link>
         </li>
         {loggedIn && <li className={`nav-item ${isAboutPage ? 'active' : ''}`}>
-          <Link className={`nav-link ${isAboutPage ? 'font-weight-bold' : ''}`} to="/about">About</Link>
+          <Link className={`nav-link  ${isAboutPage ? 'font-weight-bold' : ''}`} to="/about">About</Link>
+        </li>}
+        {loggedIn && <li className={`nav-item ${isCreateEventsPage ? 'active' : ''}`}>
+          <Link className={`nav-link  ${isCreateEventsPage ? 'font-weight-bold' : ''}`} to="/create-event">Create Event</Link>
         </li>}
       </ul>
     </div>
