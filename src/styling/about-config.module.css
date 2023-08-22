@@ -1,0 +1,98 @@
+/* about-config.module.css */
+.container {
+  background-color: white;
+  animation: fadeIn 0.8s ease-out; /* Adjust animation timing and easing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Disabling the animation as it make the page look slow */
+/* @keyframes fadeIn { 
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Increased shadow for a smoother transition */
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto;
+  animation: fadeInCard 0.5s ease-out; /* Adjust animation timing and easing */
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Increased initial translateY */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardHeader {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.cardHeader h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cardHeader h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.cardContent {
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.row {
+  margin-bottom: 15px;
+  margin-right: 10px;
+}
+
+.row td {
+  padding: 10px 0;
+  vertical-align: top;
+}
+
+.row td:first-child {
+  width: 30%;
+  font-weight: bold;
+  color: #6a6a6a;
+}
+
+.row td:last-child {
+  color: #000000;
+}
+
+.button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
