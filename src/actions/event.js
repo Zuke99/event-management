@@ -4,7 +4,7 @@ import EventService from "../services/event.service";
 export const addEvent = (name, description, seats, category, posterImage, date, start_time, end_time, venue, about, tags, organisation) => (dispatch) => {
     return EventService.addEvent(name, description, seats, category, posterImage, date, start_time, end_time, venue, about, tags, organisation).then(
         (response) => {
-            console.log("resposnse",response);
+            
             dispatch({
                 type:ADDEVENTSUCCESS,
             });

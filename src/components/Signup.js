@@ -115,7 +115,7 @@ function Signup(props) {
   };
   
   return (
-    <div>
+    <div className={style['login-container']}>
          <CustomPopup onClose={popupCloseHandler}
         show={visibility}
   >

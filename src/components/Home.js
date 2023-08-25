@@ -9,7 +9,18 @@ import comedy from "../assets/comedy.png";
 import event from "../assets/event.jpg";
 import style from "../styling/cssstyling.module.css";
 import Card from "./Card";
+import {useDispatch, useSelector} from 'react-redux';
+import { useEffect } from "react";
+import { getEvent } from "../actions/home";
 function Home() {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getEvent());
+  }, [dispatch]);
+
+  const events = useSelector(state => state.homeReducer);
+  console.log("HomePage",events);
   return (
     <div className={`page ${style.page}`}>
       <div className="Banner">
@@ -58,17 +69,22 @@ function Home() {
           </div>
         </div>
       </div>
+      <div className="container my-3" >
+      <div className='row' >
 
-      <div className={style["card-container"]}>
-        <div className={style["single-card"]}>
-          <Card></Card>
-        </div>
-        <div className={style["single-card"]}>
-          <Card></Card>
-        </div>
-        <div className={style["single-card"]}>
-          <Card></Card>
-        </div>
+      
+      {console.log("cards",events)}
+      {events.map(event => 
+        <div className='col-md-3 ' key={event._id}>
+            <Card name={event?.name} date={event?.date} description={event?.description} id={event._id}/>
+          </div>
+        
+      )}
+        
+   
+
+
+      </div>
       </div>
     </div>
   );

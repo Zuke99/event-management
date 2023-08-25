@@ -13,6 +13,8 @@ import { addEvent } from "../actions/event";
 
 
 function CreateEvent() {
+    console.log("Inside CReateEvent")
+   
     const { user: currentUser } = useSelector((state) => state.auth);
     const [startDate, setStartDate] = useState(new Date());
     const [startTime, setStartTime] = useState(new Date());
@@ -40,7 +42,7 @@ function CreateEvent() {
     const checkBtn = useRef();
 
     const dispatch = useDispatch();
-
+   
     const required = (value) => {
         if (!value) {
           return (

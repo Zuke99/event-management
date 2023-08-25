@@ -2,7 +2,9 @@
 * {
   font-family: "Poppins", sans-serif;
 }
-
+.login-container{
+  z-index: 10;
+}
 .card-container {
   display: flex;
   flex-direction: column;
