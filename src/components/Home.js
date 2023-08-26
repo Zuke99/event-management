@@ -9,18 +9,33 @@ import comedy from "../assets/comedy.png";
 import event from "../assets/event.jpg";
 import style from "../styling/cssstyling.module.css";
 import Card from "./Card";
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getEvent } from "../actions/home";
-function Home() {
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(getEvent());
-  }, [dispatch]);
+import { isLoggedIn } from "../redux/userSlice";
 
-  const events = useSelector(state => state.homeReducer);
-  console.log("HomePage",events);
+
+
+
+
+
+function Home() {
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   // Dispatch the isLoggedIn action when the component loads
+  //   dispatch(isLoggedIn())
+  //     .then((response) => {
+  //       console.log('Logged in successfully:', response);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error logging in:', error);
+  //     });
+  // }, [dispatch]);
+
+
+  
+
   return (
     <div className={`page ${style.page}`}>
       <div className="Banner">
@@ -72,16 +87,10 @@ function Home() {
       <div className="container my-3" >
       <div className='row' >
 
-      
-      {console.log("cards",events)}
-      {events.map(event => 
-        <div className='col-md-3 ' key={event._id}>
-            <Card name={event?.name} date={event?.date} description={event?.description} id={event._id}/>
-          </div>
-        
-      )}
-        
-   
+        <div className="col-md-3">
+          <Card/>
+        </div>
+
 
 
       </div>
