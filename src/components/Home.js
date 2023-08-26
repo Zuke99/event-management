@@ -9,7 +9,33 @@ import comedy from "../assets/comedy.png";
 import event from "../assets/event.jpg";
 import style from "../styling/cssstyling.module.css";
 import Card from "./Card";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { isLoggedIn } from "../redux/userSlice";
+
+
+
+
+
+
 function Home() {
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   // Dispatch the isLoggedIn action when the component loads
+  //   dispatch(isLoggedIn())
+  //     .then((response) => {
+  //       console.log('Logged in successfully:', response);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error logging in:', error);
+  //     });
+  // }, [dispatch]);
+
+
+  
+
   return (
     <div className={`page ${style.page}`}>
       <div className="Banner">
@@ -58,17 +84,16 @@ function Home() {
           </div>
         </div>
       </div>
+      <div className="container my-3" >
+      <div className='row' >
 
-      <div className={style["card-container"]}>
-        <div className={style["single-card"]}>
-          <Card></Card>
+        <div className="col-md-3">
+          <Card/>
         </div>
-        <div className={style["single-card"]}>
-          <Card></Card>
-        </div>
-        <div className={style["single-card"]}>
-          <Card></Card>
-        </div>
+
+
+
+      </div>
       </div>
     </div>
   );

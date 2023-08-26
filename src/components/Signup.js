@@ -9,7 +9,10 @@ import { isEmail } from "validator";
 import style from "../styling/cssstyling.module.css"
 import logo from "../assets/login-logo.png";
 
-import { register } from "../actions/auth";
+
+import  {registerUser}  from '../redux/userSlice';
+
+
 const required = (value) => {
   if (!value) {
     return (
@@ -62,9 +65,12 @@ function Signup(props) {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
 
-  const { message } = useSelector(state => state.message);
+  //Getting the state from Redux 
+   const {registerMessage} = useSelector(state => state.app);
+
   const dispatch = useDispatch();
   const popupCloseHandler = (e) => {
+    navigate("/");
     setVisibility(e);
     props.closeSignup();
   };
@@ -92,7 +98,8 @@ function Signup(props) {
     setPassword(password);
   };
 
-  const handleRegister = (e) => {
+
+  const handleRegister = async(e) => {
     e.preventDefault();
 
     setSuccessful(false);
@@ -100,22 +107,34 @@ function Signup(props) {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(role,name, username, email, password))
-        .then(() => {
-          setSuccessful(true);
-          navigate("/");
-          window.location.reload();
-          
-        })
-        .catch(() => {
-          setSuccessful(false);
+      const data ={
+        role: role,
+        name: name,
+        username: username,
+        email: email,
+        password: password
+
+      }
+      try{
+      //sending the dispatcher to redux with the FormValues
+      const result = await dispatch(registerUser(data));
+      if(registerUser.fulfilled.match(result)){
+        setSuccessful(true);
+        navigate("/");
+      } else {
+        setSuccessful(false);
+      }
+    } catch (error){
+      console.log("Catch:", error);
+      setSuccessful(false);
+    }
+      
         
-        });
     }
   };
   
   return (
-    <div>
+    <div className={style['login-container']}>
          <CustomPopup onClose={popupCloseHandler}
         show={visibility}
   >
@@ -198,10 +217,10 @@ function Signup(props) {
             </div>
       
 
-          {(message || successful) && (
+          {(registerMessage || successful) && (
             <div  className="form-group" >
               <div className={style['alert']} role="alert">
-                {message}
+               {registerMessage}
               </div>
             </div>
           )}

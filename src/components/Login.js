@@ -7,8 +7,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import logo from "../assets/login-logo.png";
 import style from "../styling/cssstyling.module.css"
-import { login } from "../actions/auth";
-import { CLEAR_MESSAGE } from "../actions/type";
+import { loginUser } from "../redux/userSlice";
 
 
 
@@ -24,9 +23,9 @@ function Login(props) {
  // const [req, setReq] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { isLoggedIn } = useSelector(state => state.auth);
+ // const { isLoggedIn } = useSelector(state => state.auth);
  
-  const { message } = useSelector(state => state.message);
+  const { loginMessage } = useSelector(state => state.app);
 
   
  
@@ -44,10 +43,8 @@ function Login(props) {
   }
 
   const popupCloseHandler = (e) => {
+    navigate("/");
     setVisibility(e);
-    dispatch({
-      type: CLEAR_MESSAGE
-    })
     props.closeLogin();
     
   };
@@ -62,33 +59,40 @@ function Login(props) {
     setPassword(password);
   };
 
-  const handleLogin = (e) =>{
+  const handleLogin = async (e) =>{
     e.preventDefault();
     setLoading(true);
 
     form.current.validateAll();
+    const data ={
+      email : email,
+      password : password
+    }
 
     if(checkBtn.current.context._errors.length === 0){
-      dispatch(login(email, password))
-      .then(() =>{
-        navigate("/about");
-       window.location.reload();
-      })
-      .catch(() => {
+      const result = await dispatch(loginUser(data));
+      if(loginUser.fulfilled.match(result)){
+        localStorage.setItem("user",result.payload.data.data.token)
+        popupCloseHandler();
+        window.location.reload();
+        navigate("/");
         setLoading(false);
-      });
+      } else {
+        setLoading(false);
+      }
+      
     } else {
       setLoading(false);
     }
   };
 
-  if(isLoggedIn){
-    return <Navigate to="/about" />
-  }
+  // if(isLoggedIn){
+  //   return <Navigate to="/about" />
+  // }
   return (
     <>
    
-    <div>
+    <div className={style['login-container']}>
       <CustomPopup onClose={popupCloseHandler}
         show={visibility}
         >
@@ -143,10 +147,10 @@ function Login(props) {
         </Form>
       
       </div>
-      {message && (
+      {loginMessage && (
             <div className="form-group">
               <div className={style['alert']} role="alert">
-                {message}
+                {loginMessage}
               </div>
             </div>
           )}

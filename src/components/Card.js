@@ -2,6 +2,11 @@ import React from 'react'
 import newevent from "../assets/newevent.jpg";
 import style from  "../styling/cssstyling.module.css";
 function Card() {
+
+ // const { message } = useSelector(state => state.message);
+
+
+  
   return (
     <div>
       <div className={style["movie-card"]}>
@@ -12,9 +17,9 @@ function Card() {
     </div>
   </div>
   <div className={style["movie-details"]}>
-    <h3 className={style["movie-title"]}>Singing Event</h3>
-    <p className={style["movie-info"]}>Date: August 31, 2023</p>
-    <p className={style["movie-info"]}>Category: Action, Adventure</p>
+    <h3 className={style["movie-title"]}>Event Name</h3>
+    <p className={style["movie-info"]}>Date: </p>
+    <p className={style["movie-info"]} >Description:</p>
   </div>
 </div>
     </div>

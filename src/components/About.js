@@ -1,14 +1,35 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import style from "../styling/about-config.module.css";
+import { isLoggedIn, userDetails } from "../redux/userSlice";
 
 const About = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
 
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {name, id, email} = useSelector(state => state.app)
+
+  useEffect(() => {
+    dispatch(isLoggedIn())
+      .unwrap()
+      .then((result) => {
+        console.log("About", result);
+      })
+      .catch((error) => {
+        navigate("/login");
+        console.log("AboutReject", error);
+      });
+
+      dispatch(userDetails())
+      .unwrap()
+      .then((result) =>{
+        console.log("USerDetaiis",result);
+      }).catch((error) => {
+        console.log("USerDetReject", error);
+      });
+  }, [dispatch]);
 
   return (
     <div className={style.container}>
@@ -22,19 +43,19 @@ const About = () => {
             <tbody>
               <tr className={style.row}>
                 <td>Username:</td>
-                <td>{currentUser.username}</td>
+                <td>{name}</td>
               </tr>
               <tr className={style.row}>
                 <td>Id:</td>
-                <td>{currentUser._id}</td>
+                <td>{id}</td>
               </tr>
               <tr className={style.row}>
                 <td>Email:</td>
-                <td>{currentUser.email}</td>
+                <td>{email}</td>
               </tr>
               <tr className={style.row}>
                 <td>Authorities:</td>
-                <td>{currentUser.role}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>

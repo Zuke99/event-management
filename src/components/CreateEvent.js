@@ -1,7 +1,7 @@
 
 import Form from "react-validation/build/form";
 import style from "../styling/createevent.module.css"
-import React, {  useState ,useRef} from "react";
+import React, {  useState ,useRef, useEffect} from "react";
 import DatePicker from "react-datepicker";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -9,11 +9,13 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { addEvent } from "../actions/event";
+import { isLoggedIn, role } from "../redux/userSlice";
 
 
 function CreateEvent() {
-    const { user: currentUser } = useSelector((state) => state.auth);
+    console.log("Inside CReateEvent")
+   
+    
     const [startDate, setStartDate] = useState(new Date());
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
@@ -32,7 +34,8 @@ function CreateEvent() {
     const [about, setAbout] = useState();
     const [organisation, setOrganisation] = useState();
     const [successful, setSuccessful] = useState();
-    const { message } = useSelector(state => state.message);
+    //const { message } = useSelector(state => state.message);
+    const [message, setMessage] = useState();
 
     let navigate = useNavigate();
 
@@ -41,6 +44,38 @@ function CreateEvent() {
 
     const dispatch = useDispatch();
 
+
+    useEffect(() => {
+        dispatch(isLoggedIn())
+          .unwrap()
+          .then((result) => {
+            console.log("About", result);
+          })
+          .catch((error) => {
+            navigate("/login");
+            console.log("AboutReject", error);
+          });
+      }, [dispatch]);
+
+      //Use this to check Roles
+
+    // useEffect(() => {
+    //     dispatch(role())
+    //       .unwrap()
+    //       .then((result) => {
+    //         if(result.result===1){
+    //             console.log("Admin");
+    //         } else {
+    //             console.log("NotAdmin");
+    //         }
+          
+    //       })
+    //       .catch((error) => {
+    //         console.log("ROLE", error);
+           
+    //       });
+    //   }, [dispatch]);
+   
     const required = (value) => {
         if (!value) {
           return (
@@ -69,9 +104,9 @@ function CreateEvent() {
     };
     
 
-    if (!currentUser) {
-        return <Navigate to="/login" />;
-      }
+    // if (!currentUser) {
+    //     return <Navigate to="/login" />;
+    //   }
 
     function onImageChanges(e){
         const selectedImage = e.target.files[0];
@@ -128,20 +163,20 @@ function CreateEvent() {
 
         form.current.validateAll();
 
-        if (checkBtn.current.context._errors.length === 0) {
-            dispatch(addEvent(name, description, seats, category, imageUrl, startDate, startTime, endTime, venue, about, tags, organisation))
-            .then(() => {
-                setSuccessful(true);
-                alert("Event is Added Successfully");
+        // if (checkBtn.current.context._errors.length === 0) {
+        //     dispatch(addEvent(name, description, seats, category, imageUrl, startDate, startTime, endTime, venue, about, tags, organisation))
+        //     .then(() => {
+        //         setSuccessful(true);
+        //         alert("Event is Added Successfully");
                 
-                navigate("/");
-                window.location.reload();
-            })
-            .catch(() => {
-                console.log("NO");
-                setSuccessful(false);
-            });
-        }
+        //         navigate("/");
+        //         window.location.reload();
+        //     })
+        //     .catch(() => {
+        //         console.log("NO");
+        //         setSuccessful(false);
+        //     });
+        // }
 
     }
 

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
-import userService from "../services/user.service";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { logout } from "../actions/auth";
 import style from "../styling/navbar.module.css";
+import { isLoggedIn } from "../redux/userSlice";
 
-const { isLoggedIn } = userService;
+
 
 function Navbar() {
   const location = useLocation();
@@ -18,25 +17,28 @@ function Navbar() {
   const [loginVisibility, setLoginVisibility] = useState(false);
   const [signupVisibility, setSignupVisibility] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+
  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    isLoggedIn()
-      .then((response) => {
-        if (response.data.status === true) {
-          setLoggedIn(true);
-        }
+    dispatch(isLoggedIn())
+      .unwrap()
+      .then((result) => {
+        console.log("NavbarFulfil", result);
+        setLoggedIn(true);
       })
       .catch((error) => {
-        console.error("Error fetching user data:", error);
+        console.log("NavbarRejected", error);
+        setLoggedIn(false);
       });
-  }, []);
+  }, [dispatch]);
 
   const handleLogOut = () => {
-    dispatch(logout());
+   // dispatch(logout());
+   localStorage.removeItem("user");
     navigate("/");
     window.location.reload();
   };
