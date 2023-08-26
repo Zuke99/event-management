@@ -1,7 +1,7 @@
 import React from 'react'
 import newevent from "../assets/newevent.jpg";
 import style from  "../styling/cssstyling.module.css";
-function Card() {
+function Card(props) {
 
  // const { message } = useSelector(state => state.message);
 
@@ -17,9 +17,9 @@ function Card() {
     </div>
   </div>
   <div className={style["movie-details"]}>
-    <h3 className={style["movie-title"]}>Event Name</h3>
-    <p className={style["movie-info"]}>Date: </p>
-    <p className={style["movie-info"]} >Description:</p>
+    <h3 className={style["movie-title"]}>{props.name}</h3>
+    <p className={style["movie-info"]}>Date: {props.date}</p>
+    <p className={style["movie-info"]} >Description: {props.description}</p>
   </div>
 </div>
     </div>
