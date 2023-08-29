@@ -1,11 +1,14 @@
 import React from 'react'
 import newevent from "../assets/newevent.jpg";
 import style from  "../styling/cssstyling.module.css";
-function Card() {
+function Card(props) {
 
  // const { message } = useSelector(state => state.message);
 
-
+const date = new Date(props.date);
+const d = date.getDate();
+const m = date.getMonth()+1;
+const y = date.getFullYear();
   
   return (
     <div>
@@ -17,9 +20,9 @@ function Card() {
     </div>
   </div>
   <div className={style["movie-details"]}>
-    <h3 className={style["movie-title"]}>Event Name</h3>
-    <p className={style["movie-info"]}>Date: </p>
-    <p className={style["movie-info"]} >Description:</p>
+    <h3 className={style["movie-title"]}>{props.name}</h3>
+    <p className={style["movie-info"]}>Date: {d}/{m}/{y}</p>
+    <p className={style["movie-info"]} >Description: {props.description}</p>
   </div>
 </div>
     </div>
