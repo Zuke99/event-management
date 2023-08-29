@@ -5,7 +5,10 @@ function Card(props) {
 
  // const { message } = useSelector(state => state.message);
 
-
+const date = new Date(props.date);
+const d = date.getDate();
+const m = date.getMonth()+1;
+const y = date.getFullYear();
   
   return (
     <div>
@@ -18,7 +21,7 @@ function Card(props) {
   </div>
   <div className={style["movie-details"]}>
     <h3 className={style["movie-title"]}>{props.name}</h3>
-    <p className={style["movie-info"]}>Date: {props.date}</p>
+    <p className={style["movie-info"]}>Date: {d}/{m}/{y}</p>
     <p className={style["movie-info"]} >Description: {props.description}</p>
   </div>
 </div>

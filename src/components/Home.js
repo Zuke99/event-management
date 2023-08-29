@@ -92,20 +92,20 @@ function Home() {
       </div>
       <div className="container my-3" >
       <div className='row' >
-        <div className="col-md-3">
           {/* <Card/> */}
           {state.event.data && state.event.data.filter((e) => e.approval === true)
           .map((e) => {
             return(
-              // console.log("hi");
+              <div className="col-md-3" key={e._id}>
               <Card 
               name={e.name} 
               date={e.date}
               description={e.description}
               />
+              </div>
             );
           })}
-        </div>
+        
       </div>
       </div>
     </div>
