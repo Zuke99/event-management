@@ -39,6 +39,7 @@ export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithV
         try{
             const authenticatedAxios = createAuthenticatedAxios();
             const response = await authenticatedAxios.get(API_URL+"test");
+            console.log("isLoggedIN SLice", response);
             if(response.data.status === true){
             return response.data.message;
             } else {
