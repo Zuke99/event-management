@@ -1,7 +1,7 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { authAxios, axiosAuth, createAuthenticatedAxios } from "./axiosAuth";
+import { createAuthenticatedAxios } from "./axiosAuth";
 
 const API_URL = "http://localhost:8080/user/"
 //create Action
@@ -16,7 +16,7 @@ export const registerUser = createAsyncThunk("registerUser", async (data, {rejec
     }
     
     } catch (error){
-        return rejectWithValue(error)
+        return rejectWithValue(error.response.data)
     }
 });
 
@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithV
         }
 
     } catch (error){
-        return rejectWithValue(error)
+        return rejectWithValue(error.response.data)
     }
 })
     export const isLoggedIn = createAsyncThunk("isLoggedIn", async(_, {rejectWithValue})=>{

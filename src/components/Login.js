@@ -72,6 +72,7 @@ function Login(props) {
     if(checkBtn.current.context._errors.length === 0){
       const result = await dispatch(loginUser(data));
       if(loginUser.fulfilled.match(result)){
+        console.log("True");
         localStorage.setItem("user",result.payload.data.data.token)
         popupCloseHandler();
         window.location.reload();
