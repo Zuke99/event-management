@@ -10,8 +10,9 @@ import event from "../assets/event.jpg";
 import style from "../styling/cssstyling.module.css";
 import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { isLoggedIn } from "../redux/userSlice";
+
 
 import {fetchEvents} from '../redux/slice/eventSlice';
 
@@ -22,11 +23,12 @@ function Home() {
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  const isLoading = useSelector((state => state.event));
   useEffect(() => {
     dispatch(fetchEvents());
   }, []);
 
-  // console.log("Hii : ", state);
+   console.log("Hii : ", state.event);
 
   // useEffect(() => {
   //   // Dispatch the isLoggedIn action when the component loads
@@ -93,7 +95,7 @@ function Home() {
       <div className="container my-3" >
       <div className='row' >
           {/* <Card/> */}
-          {state.event.data && state.event.data.filter((e) => e.approval === true)
+          {state.event.data && state.event.data.data.filter((e) => e.approval === true)
           .map((e) => {
             return(
               <div className="col-md-3" key={e._id}>

@@ -7,12 +7,13 @@ import axios from "axios";
     return response.json();
 });*/
 
-const API_URL = 'http://localhost:8083/event';
+const API_URL = 'http://localhost:8080/event';
 
 export const fetchEvents = createAsyncThunk('fetchEvents', async () => {
     try {
         const response = await axios.get(API_URL);
-        return [...response.data];
+        console.log("EventSlice ", response);
+        return response.data;
     } catch (err) {
         return err.message;
     }
@@ -21,7 +22,7 @@ export const fetchEvents = createAsyncThunk('fetchEvents', async () => {
 const eventSlice = createSlice({
     name : 'events',
     initialState : {
-        isLoading: false,
+        isLoading: true,
         data: null,
         isError: false,
     },
