@@ -23,7 +23,7 @@ function Home() {
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const isLoading = useSelector((state => state.event));
+  const isLoading = useSelector((state => state.event.isLoading));
   useEffect(() => {
     dispatch(fetchEvents());
   }, []);
@@ -95,7 +95,8 @@ function Home() {
       <div className="container my-3" >
       <div className='row' >
           {/* <Card/> */}
-          {state.event.data && state.event.data.data.filter((e) => e.approval === true)
+          {console.log("load"+isLoading +" and ")}
+          {!isLoading && state.event.data && state.event.data.data.filter((e) => e.approval === true)
           .map((e) => {
             return(
               <div className="col-md-3" key={e._id}>

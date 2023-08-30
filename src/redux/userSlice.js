@@ -23,7 +23,7 @@ export const registerUser = createAsyncThunk("registerUser", async (data, {rejec
 export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithValue}) => {
     try{
         const response = await axios.post(API_URL+"login", data);
-        console.log("response", response.data);
+        console.log("login response", response.data);
         if(response.data.status === true){
             return response.data;
         } else {
