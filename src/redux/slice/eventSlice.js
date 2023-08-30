@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createAuthenticatedAxios } from "../axiosAuth";
 
 //Action
 /*export const fetchEvents = createAsyncThunk('fetchEvents', async () => {
@@ -8,7 +9,7 @@ import axios from "axios";
 });*/
 
 const API_URL = 'http://localhost:8080/event';
-
+const authenticatedAxios = createAuthenticatedAxios();
 export const fetchEvents = createAsyncThunk('fetchEvents', async (_, {rejectWithValue}) => {
     try {
         const response = await axios.get(API_URL);
@@ -24,6 +25,19 @@ export const fetchEvents = createAsyncThunk('fetchEvents', async (_, {rejectWith
 })
 
 
+export const approveEvent = createAsyncThunk('approveEvent', async(data,{rejectWithValue}) => {
+    try{
+        const response = await authenticatedAxios.put(API_URL + "/approval/approveevent",data);
+        if(response.data.status === true){
+            return response.data;
+        } else {
+            return rejectWithValue(response.data.message);
+        }
+    }  catch (err) {
+        return rejectWithValue(err);
+    }
+})
+
 
 const eventSlice = createSlice({
     name : 'events',
@@ -31,6 +45,8 @@ const eventSlice = createSlice({
         isLoading: true,
         data: null,
         isError: false,
+        about : false,
+        message : "",
     },
     extraReducers : (builder) => {
         builder.addCase(fetchEvents.pending, (state,action) => {
@@ -44,6 +60,21 @@ const eventSlice = createSlice({
             console.log("Error",action.payload);
             state.isError = true;
         });
+
+        builder.addCase(approveEvent.pending, (state) => {
+            state.isLoading = true;
+        });
+
+        builder.addCase(approveEvent.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.message = action.payload.message;
+        });
+
+        builder.addCase(approveEvent.rejected, (state, action) => {
+            state.isLoading = false;
+            state.message = action.payload.message;
+        })
+       
 
         
 

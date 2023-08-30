@@ -120,6 +120,7 @@ function Signup(props) {
       const result = await dispatch(registerUser(data));
       if(registerUser.fulfilled.match(result)){
         setSuccessful(true);
+        window.location.reload();
         navigate("/");
       } else {
         setSuccessful(false);
@@ -217,7 +218,7 @@ function Signup(props) {
             </div>
       
 
-          {(registerMessage || successful) && (
+          {(successful || registerMessage) && (
             <div  className="form-group" >
               <div className={style['alert']} role="alert">
                {registerMessage}

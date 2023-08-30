@@ -29,9 +29,9 @@ const buttonClickHandler = async () =>{
     <div>
       <div className={style["movie-card"]}>
   <div className={style["movie-image-container"]}>
-    <img src={newevent} alt="Movie Poster" className={style["movie-image"]} />
+    <img src={props.allDetails.posterImage} alt="Movie Poster" className={style["movie-image"]} />
     <div className={style["overlay"]}>
-      <button className={style["book-button"]} onClick={buttonClickHandler}>Book Now</button>
+      <button className={style["book-button"]} onClick={buttonClickHandler}>View Event</button>
     </div>
   </div>
   <div className={style["movie-details"]}>
