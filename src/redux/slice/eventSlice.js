@@ -9,15 +9,21 @@ import axios from "axios";
 
 const API_URL = 'http://localhost:8080/event';
 
-export const fetchEvents = createAsyncThunk('fetchEvents', async () => {
+export const fetchEvents = createAsyncThunk('fetchEvents', async (_, {rejectWithValue}) => {
     try {
         const response = await axios.get(API_URL);
         console.log("EventSlice ", response);
+        if(response.data.status === true){
         return response.data;
+        } else {
+            return rejectWithValue(response.data.message);
+        }
     } catch (err) {
-        return err.message;
+        return rejectWithValue(err);
     }
 })
+
+
 
 const eventSlice = createSlice({
     name : 'events',
@@ -38,6 +44,9 @@ const eventSlice = createSlice({
             console.log("Error",action.payload);
             state.isError = true;
         });
+
+        
+
     }
 });
 

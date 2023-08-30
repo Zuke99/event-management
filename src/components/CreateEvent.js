@@ -10,6 +10,7 @@ import CheckButton from "react-validation/build/button";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { isLoggedIn, role } from "../redux/userSlice";
+import { addEvent } from "../redux/eventSlice";
 
 
 function CreateEvent() {
@@ -163,20 +164,32 @@ function CreateEvent() {
 
         form.current.validateAll();
 
-        // if (checkBtn.current.context._errors.length === 0) {
-        //     dispatch(addEvent(name, description, seats, category, imageUrl, startDate, startTime, endTime, venue, about, tags, organisation))
-        //     .then(() => {
-        //         setSuccessful(true);
-        //         alert("Event is Added Successfully");
-                
-        //         navigate("/");
-        //         window.location.reload();
-        //     })
-        //     .catch(() => {
-        //         console.log("NO");
-        //         setSuccessful(false);
-        //     });
-        // }
+        const data = {
+            name : name,
+            description : description,
+            seats : seats,
+            category : category,
+            posterImage : imageUrl,
+            date : startDate,
+            start_time : startTime,
+            end_time : endTime,
+            venue : venue,
+            about : about,
+            tags : tags,
+            organisation : organisation,
+        }
+
+        if (checkBtn.current.context._errors.length === 0) {
+           dispatch(addEvent(data))
+           .unwrap()
+           .then((result) => {
+            alert(result.message);
+            navigate("/");
+            //window.location.reload();
+           }).catch((error) => {
+            alert(error);
+           })
+        }
 
     }
 
