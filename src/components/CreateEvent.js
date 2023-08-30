@@ -3,14 +3,15 @@ import Form from "react-validation/build/form";
 import style from "../styling/createevent.module.css"
 import React, {  useState ,useRef, useEffect} from "react";
 import DatePicker from "react-datepicker";
-import { useSelector, useDispatch } from "react-redux";
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useDispatch } from "react-redux";
+import {  useNavigate } from 'react-router-dom';
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import assets from "../assets/loading.gif"
 import "react-datepicker/dist/react-datepicker.css";
-import { isLoggedIn, role } from "../redux/userSlice";
+import { isLoggedIn } from "../redux/userSlice";
 import { addEvent } from "../redux/eventSlice";
+import axios from "axios";
 
 
 function CreateEvent() {
@@ -34,9 +35,11 @@ function CreateEvent() {
     const [venue, setVenue] = useState();
     const [about, setAbout] = useState();
     const [organisation, setOrganisation] = useState();
-    const [successful, setSuccessful] = useState();
+
+    const[loading, setLoading] = useState(false);
+    const [url, setUrl] = useState();
     //const { message } = useSelector(state => state.message);
-    const [message, setMessage] = useState();
+
 
     let navigate = useNavigate();
 
@@ -56,7 +59,7 @@ function CreateEvent() {
             navigate("/login");
             console.log("AboutReject", error);
           });
-      }, [dispatch]);
+      }, [dispatch, navigate]);
 
       //Use this to check Roles
 
@@ -160,7 +163,7 @@ function CreateEvent() {
     const handleSubmit = (e) => {
         console.log("Submit pressed");
         e.preventDefault();
-        setSuccessful(false);
+      
 
         form.current.validateAll();
 
@@ -169,7 +172,7 @@ function CreateEvent() {
             description : description,
             seats : seats,
             category : category,
-            posterImage : imageUrl,
+            posterImage : url,
             date : startDate,
             start_time : startTime,
             end_time : endTime,
@@ -192,6 +195,91 @@ function CreateEvent() {
         }
 
     }
+
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+    
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+    
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+      };
+
+      function uploadSingleImage(base64) {
+        setLoading(true);
+        axios
+          .post("http://localhost:8080/uploadImage", { image: base64 })
+          .then((res) => {
+            setUrl(res.data);
+            alert("Image uploaded Succesfully");
+          })
+          .then(() => setLoading(false))
+          .catch(console.log);
+      }
+
+      const uploadImage = async (event) => {
+        const files = event.target.files;
+        console.log(files.length);
+    
+
+          const base64 = await convertBase64(files[0]);
+          uploadSingleImage(base64);
+          return;
+        
+    
+       
+      };
+
+      function UploadInput() {
+        return (
+          <div className="flex items-center justify-center w-full">
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg
+                  aria-hidden="true"
+                  className="w-10 h-10 mb-3 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Click to upload</span> or drag and
+                  drop
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                </p>
+              </div>
+              <input
+                onChange={uploadImage}
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+                multiple
+              />
+            </label>
+          </div>
+        );
+      }
+    
 
    
   return (
@@ -324,14 +412,45 @@ function CreateEvent() {
 
 
 
+       {/* *************************************************** */}
+       <div className="flex justify-center flex-col m-8 ">
+      <div>
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
+          Upload Photo
+        </h2>
+      </div>
+      <div>
+        {url && (
+          <div>
+            Access you file at{" "}
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {url}
+            </a>
+          </div>
+        )}
+      </div>
+      <div>
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <img src={assets} alt="upload-event"/>{" "}
+          </div >
+        ) : (
+            <div className={`col-sm-10 `}>
+          <UploadInput />
+          </div>
+        )}
+      </div>
+    </div>
+       {/* *************************************************** */}
 
-        <div className={`form-group row ${style['input-container']}`}>
+
+        {/* <div className={`form-group row ${style['input-container']}`}>
             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Image Upload</label>
             <div className={`col-sm-10 `} >
             <Input type="file" accept="image/*" onChange={onImageChanges} />
            { image && <img src={imageUrl} alt="upload-event" className={style['event-image']}/>}
             </div>
-        </div>
+        </div> */}
         
 
         <div className={`form-group row ${style['input-container']}`}>
@@ -339,13 +458,7 @@ function CreateEvent() {
         </div>
         
         
-        {(message || successful) && (
-            <div  className="form-group" >
-              <div className={style['alert']} role="alert">
-                {message}
-              </div>
-            </div>
-          )}
+        
 
         <CheckButton style={{ display: "none" }} ref={checkBtn} />
       </Form>

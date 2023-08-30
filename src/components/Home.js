@@ -10,8 +10,8 @@ import event from "../assets/event.jpg";
 import style from "../styling/cssstyling.module.css";
 import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { isLoggedIn } from "../redux/userSlice";
+import { useEffect } from "react";
+
 
 
 import {fetchEvents} from '../redux/slice/eventSlice';
@@ -26,11 +26,11 @@ function Home() {
   const isLoading = useSelector((state => state.event.isLoading));
   useEffect(() => {
     dispatch(fetchEvents());
+    localStorage.setItem('navigate',"home");
     
-    
-  }, []);
+  }, [dispatch]);
 
-   console.log("Hii : ", state.event);
+  //  console.log("Hii : ", state.event);
 
   // useEffect(() => {
   //   // Dispatch the isLoggedIn action when the component loads

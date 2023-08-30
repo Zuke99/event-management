@@ -1,21 +1,24 @@
-import React, { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../styling/about-config.module.css";
-import { isLoggedIn, userDetails } from "../redux/userSlice";
+import { isLoggedIn, role, userDetails } from "../redux/userSlice";
 
 const About = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {name, id, email} = useSelector(state => state.app)
+  const {name, id, email} = useSelector(state => state.app);
+
+  const [admin , setAdmin] = useState(false);
 
   useEffect(() => {
     dispatch(isLoggedIn())
       .unwrap()
       .then((result) => {
         console.log("About", result);
+       
       })
       .catch((error) => {
         navigate("/login");
@@ -29,7 +32,29 @@ const About = () => {
       }).catch((error) => {
         console.log("USerDetReject", error);
       });
-  }, [dispatch]);
+
+
+      dispatch(role())
+            .unwrap()
+            .then((result) => {
+              if(result.result===1){
+                  console.log("Admin");
+                  setAdmin(true);
+              } else {
+                  console.log("NotAdmin");
+              }
+            
+            })
+            .catch((error) => {
+              console.log("ROLE", error);
+             
+            });
+  }, [dispatch, navigate]);
+
+  const onClickApproveButton = () =>{
+    localStorage.setItem('navigate', "about");
+    navigate("/approve-events")
+  }
 
   return (
     <div className={style.container}>
@@ -73,6 +98,13 @@ const About = () => {
           >
             Change Password
           </button>
+          {admin && <button
+            onClick={onClickApproveButton}
+            className={`${style.button} ${style.row}`}
+            // onClick={handleChangePassword}
+          >
+            Approve Events
+          </button>}
         </div>
       </div>
     </div>
