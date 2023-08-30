@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import { useState } from 'react';
 import CreateEvent from './components/CreateEvent';
+import ViewEvent from './components/ViewEvent';
 
 
 
@@ -33,6 +34,7 @@ function App() {
    <Route path="/login" element={<Login closeLogin={closeLogin}/>}/>
    <Route path="/signup" element={<Signup/>}/>
    <Route path="/create-event" element={<CreateEvent/>}/>
+   <Route path="/view-event" element={<ViewEvent/>}/>
    </Routes>
   
   

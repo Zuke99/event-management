@@ -18,6 +18,7 @@ export const addEvent = createAsyncThunk("addEvent", async (data, {rejectWithVal
     }
 })
 
+
 const eventSlice = createSlice({
     name : 'event',
     initialState : {
