@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 
 
 function CreateEvent() {
-    console.log("Inside CReateEvent")
    
     
     const [startDate, setStartDate] = useState(new Date());
@@ -61,7 +60,14 @@ function CreateEvent() {
             console.log("AboutReject", error);
           });
 
-          dispatch(getCategories());
+          dispatch(getCategories())
+          .unwrap()
+          .then((result) => {
+           
+           setCategory(result.data[0].category_name);
+
+          })
+
       }, [dispatch, navigate]);
 
       //Use this to check Roles
@@ -106,7 +112,6 @@ function CreateEvent() {
             event.preventDefault();
             setTags([...tags, event.target.value]);
             setTagInput('');
-            console.log("Tags", tags);
         }
     };
     
@@ -164,7 +169,6 @@ function CreateEvent() {
     }
 
     const handleSubmit = (e) => {
-        console.log("Submit pressed");
         e.preventDefault();
       
 
