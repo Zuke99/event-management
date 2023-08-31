@@ -6,7 +6,7 @@ import { isLoggedIn } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { approveEvent } from '../redux/slice/eventSlice';
 import styles from "../styling/view-event.module.css";
-import imageUrl from "../assets/newevent.jpg";
+
 
 function ViewEvent() {
     const navigate = useNavigate();
@@ -68,7 +68,7 @@ function ViewEvent() {
     <div className='container'>
        <div className="m-auto text-center">
         {/* <img className='w-100' src={allDetails? allDetails?.posterImage: ""} alt="Poster" /> */}
-        <img className='w-50' src={imageUrl} alt="Poster" />
+        <img className='w-50' src={allDetails.posterImage} alt="Poster" />
       </div>
       <div className='d-flex flex-wrap justify-content-between align-items-start px-3 my-2 mx-3'>
         <div className='col-7'>
@@ -122,7 +122,7 @@ function ViewEvent() {
           </div>
         </div>
         <div className='col-12 m-auto text-center'>
-          <button className='btn btn-success' onClick={onButtonClickHandler}>Book Ticket</button>
+          <button className='btn btn-success' onClick={onButtonClickHandler}>{buttonName}</button>
         </div>
       </div>
   </div>
