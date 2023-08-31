@@ -12,6 +12,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { isLoggedIn } from "../redux/userSlice";
 import { addEvent } from "../redux/eventSlice";
 import axios from "axios";
+import { getCategories } from "../redux/slice/eventSlice";
+import { useSelector } from "react-redux";
 
 
 function CreateEvent() {
@@ -21,8 +23,6 @@ function CreateEvent() {
     const [startDate, setStartDate] = useState(new Date());
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
-    const [image, setImage] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null);
     const [disabled, setDisabled] = useState(false);
 
     const [tags, setTags] = useState([]);
@@ -38,6 +38,7 @@ function CreateEvent() {
 
     const[loading, setLoading] = useState(false);
     const [url, setUrl] = useState();
+    const categories= useSelector((state) => state.event.categories);
     //const { message } = useSelector(state => state.message);
 
 
@@ -59,6 +60,8 @@ function CreateEvent() {
             navigate("/login");
             console.log("AboutReject", error);
           });
+
+          dispatch(getCategories());
       }, [dispatch, navigate]);
 
       //Use this to check Roles
@@ -112,15 +115,15 @@ function CreateEvent() {
     //     return <Navigate to="/login" />;
     //   }
 
-    function onImageChanges(e){
-        const selectedImage = e.target.files[0];
-        setImage(selectedImage);
+    // function onImageChanges(e){
+    //     const selectedImage = e.target.files[0];
+    //     setImage(selectedImage);
 
-        if (selectedImage) {
-            const imageUrl = URL.createObjectURL(selectedImage);
-            setImageUrl(imageUrl);
-        }
-    }
+    //     if (selectedImage) {
+    //         const imageUrl = URL.createObjectURL(selectedImage);
+    //         setImageUrl(imageUrl);
+    //     }
+    // }
 
     function onRadioButtonChange(e){
         if(disabled){
@@ -325,11 +328,12 @@ function CreateEvent() {
             <label htmlFor="exampleFormControlSelect1" className="col-sm-2 col-form-label">Category</label>
             <div className="col-sm-10">
             <select className="form-control" onChange={onChangeCategory} id="exampleFormControlSelect1" >
-            <option>Sports</option>
-            <option>Games</option>
-            <option>Movies</option>
-            <option>Music</option>
-            <option>Comedy</option>
+           
+              {categories.map((e) => {
+               return <option key = {e._id} value={e.category_name}>{e.category_name}</option>;
+              })}
+              
+           
             </select>
             </div>
         </div>
