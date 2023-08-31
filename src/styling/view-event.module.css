@@ -1,0 +1,14 @@
+.event-category{
+    padding: 3px 12px;
+    background-color: #f63240;
+    border-radius: 34px;
+    color: #fff;
+    font-weight: 600;
+}
+.event-tag{
+    padding: 3px 2px;
+    /* border: 1px solid #f63240; */
+    font-weight: 600;
+    margin: 2px 5px;
+    border-radius: 19px;
+}
