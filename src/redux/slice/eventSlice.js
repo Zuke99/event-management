@@ -9,6 +9,7 @@ import { createAuthenticatedAxios } from "../axiosAuth";
 });*/
 
 const API_URL = 'http://localhost:8080/event';
+
 const authenticatedAxios = createAuthenticatedAxios();
 export const fetchEvents = createAsyncThunk('fetchEvents', async (_, {rejectWithValue}) => {
     try {
@@ -38,6 +39,16 @@ export const approveEvent = createAsyncThunk('approveEvent', async(data,{rejectW
     }
 })
 
+export const getCategories = createAsyncThunk('getCategories', async(_,{rejectWithValue}) => {
+    try{
+        const response = await authenticatedAxios.get("http://localhost:8080/category");
+        return response.data;
+    } catch (err) {
+        return rejectWithValue(err);
+    }
+
+})
+
 
 const eventSlice = createSlice({
     name : 'events',
@@ -47,6 +58,7 @@ const eventSlice = createSlice({
         isError: false,
         about : false,
         message : "",
+        categories : []
     },
     extraReducers : (builder) => {
         builder.addCase(fetchEvents.pending, (state,action) => {
@@ -73,6 +85,15 @@ const eventSlice = createSlice({
         builder.addCase(approveEvent.rejected, (state, action) => {
             state.isLoading = false;
             state.message = action.payload.message;
+        })
+        
+        builder.addCase(getCategories.pending, (state) => {
+            state.isLoading = true;
+        })
+
+        builder.addCase(getCategories.fulfilled, (state,action) => {
+            state.isLoading = false;
+            state.categories = action.payload.data;
         })
        
 
