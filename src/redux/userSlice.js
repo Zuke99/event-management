@@ -5,7 +5,7 @@ import { createAuthenticatedAxios } from "./axiosAuth";
 
 const API_URL = "http://localhost:8080/user/"
 //create Action
-
+const authenticatedAxios = createAuthenticatedAxios();
 export const registerUser = createAsyncThunk("registerUser", async (data, {rejectWithValue}) => {
     try{
     const response = await axios.post(API_URL+"register", data);
@@ -37,7 +37,7 @@ export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithV
     export const isLoggedIn = createAsyncThunk("isLoggedIn", async(_, {rejectWithValue})=>{
 
         try{
-            const authenticatedAxios = createAuthenticatedAxios();
+    
             const response = await authenticatedAxios.get(API_URL+"test");
             console.log("isLoggedIN SLice", response);
             if(response.data.status === true){
@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithV
 
     export const role = createAsyncThunk("role", async(_,{rejectWithValue}) =>{
         try{
-            const authenticatedAxios = createAuthenticatedAxios();
+    
             const response = await authenticatedAxios.get(API_URL+"role");
             if(response.data.status === true){
                 return response.data;
@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithV
 
     export const userDetails = createAsyncThunk("userDetails", async(_,{rejectWithValue}) =>{
         try{
-            const authenticatedAxios = createAuthenticatedAxios();
+            
             const response = await authenticatedAxios.get(API_URL+"details");
             if(response.data.status === true){
                 return response.data;
@@ -77,6 +77,8 @@ export const loginUser = createAsyncThunk("loginUser", async (data, {rejectWithV
             return rejectWithValue(error.response.data)
         }
     })
+
+    
 
 const userDetail = createSlice({
     name : 'user',
@@ -91,6 +93,7 @@ const userDetail = createSlice({
         name : "",
         email : "",
         id:"",
+    
 
     },
     extraReducers: {

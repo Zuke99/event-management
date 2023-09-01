@@ -49,6 +49,21 @@ export const getCategories = createAsyncThunk('getCategories', async(_,{rejectWi
 
 })
 
+export const getOrganisations = createAsyncThunk('getOrganisations' , async(_,{rejectWithValue}) => {
+    try{
+        const response = await authenticatedAxios.get("http://localhost:8080/user/organisation");
+        if(response.data.status === true){
+            return response.data;
+        } else {
+            return rejectWithValue(response.data);
+        }
+    } catch (error){
+        return rejectWithValue(error.response.data)
+    }
+})
+
+
+
 
 const eventSlice = createSlice({
     name : 'events',
@@ -58,7 +73,9 @@ const eventSlice = createSlice({
         isError: false,
         about : false,
         message : "",
-        categories : []
+        categories : [],
+        organisations: [],
+        organisationsMesage : "",
     },
     extraReducers : (builder) => {
         builder.addCase(fetchEvents.pending, (state,action) => {
@@ -95,8 +112,20 @@ const eventSlice = createSlice({
             state.isLoading = false;
             state.categories = action.payload.data;
         })
-       
 
+        builder.addCase(getOrganisations.pending, (state) => {
+            state.isLoading = true;
+        })
+       
+        builder.addCase(getOrganisations.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.organisations = action.payload.data;
+        })
+
+        builder.addCase(getOrganisations.rejected , (state, action) =>{
+            state.isLoading = false;
+            state.organisationsMesage = action.payload.message;
+        })
         
 
     }

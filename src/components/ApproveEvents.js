@@ -2,20 +2,23 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { fetchEvents } from '../redux/slice/eventSlice';
 import { useSelector } from 'react-redux';
+
 import Card from './Card';
 
 function ApproveEvents() {
     const dispatch = useDispatch();
-
+    const userName = useSelector((state) => state.app.name);
     useEffect(() => {
       
         dispatch(fetchEvents());
-
+       
+       
         
       }, [dispatch]);
 
       const state = useSelector((state) => state);
       const isLoading = useSelector((state => state.event.isLoading));
+     
       
   return (
     <div className='container'>
@@ -24,7 +27,7 @@ function ApproveEvents() {
       <div className='row' >
           
         
-          {!isLoading && state.event.data && state.event.data.data.filter((e) => e.approval === false)
+          {!isLoading && state.event.data && state.event.data.data.filter((e) => (e.approval === false && e.organisation === userName))
           .map((e) => {
             return(
 
