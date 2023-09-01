@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { isLoggedIn } from "../redux/userSlice";
 import { addEvent } from "../redux/eventSlice";
 import axios from "axios";
-import { getCategories } from "../redux/slice/eventSlice";
+import { getCategories, getOrganisations } from "../redux/slice/eventSlice";
 import { useSelector } from "react-redux";
 
 
@@ -38,6 +38,7 @@ function CreateEvent() {
     const[loading, setLoading] = useState(false);
     const [url, setUrl] = useState();
     const categories= useSelector((state) => state.event.categories);
+    const organisations = useSelector((state) => state.event.organisations);
     //const { message } = useSelector(state => state.message);
 
 
@@ -65,6 +66,13 @@ function CreateEvent() {
           .then((result) => {
            
            setCategory(result.data[0].category_name);
+
+          })
+          dispatch(getOrganisations())
+          .unwrap()
+          .then((result) => {
+           //console.log("Organisation",result.data[0].name);
+             setOrganisation(result.data[0].name);
 
           })
 
@@ -395,10 +403,9 @@ function CreateEvent() {
             <label htmlFor="exampleFormControlSelect1" className="col-sm-2 col-form-label">Organisation</label>
             <div className="col-sm-10">
             <select className="form-control" onChange={onChangeOrganisation} id="exampleFormControlSelect1">
-            <option>College Org.</option>
-            <option>Community Org.</option>
-            <option>State Org.</option>
-            <option>Public Org.</option>
+            {organisations.map((e) =>{
+              return <option key={e._id} value={e.name}>{e.name}</option>
+            })}
             </select>
             </div>
         </div>
