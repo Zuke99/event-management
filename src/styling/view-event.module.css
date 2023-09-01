@@ -11,4 +11,8 @@
     font-weight: 600;
     margin: 2px 5px;
     border-radius: 19px;
+    font-size: 12px;
+}
+.event-head1{
+    min-width: 130px;
 }
