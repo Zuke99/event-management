@@ -189,7 +189,8 @@ function CreateEvent() {
             seats : seats,
             category : category,
             posterImage : url,
-            date : startDate,
+            start_date : startDate,
+            end_date : endDate,
             start_time : startTime.toLocaleTimeString('en-US',
             {timeZone:'IST',hour12:true,hour:'numeric',minute:'numeric'}
           ),

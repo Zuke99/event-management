@@ -105,7 +105,8 @@ function Home() {
               <div className="col-md-3" key={e._id}>
               <Card 
               name={e.name} 
-              date={e.date}
+              start_date={e.start_date}
+              end_date={e.end_date}
               //description={e.description}
               category={e.category}
               allDetails = {e}

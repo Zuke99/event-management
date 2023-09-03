@@ -8,10 +8,15 @@ function Card(props) {
 
  // const { message } = useSelector(state => state.message);
 
-const date = new Date(props.date);
-const d = date.getDate();
-const m = date.getMonth()+1;
-const y = date.getFullYear();
+const start_date = new Date(props.start_date);
+const sd = start_date.getDate();
+const sm = start_date.getMonth()+1;
+const sy = start_date.getFullYear();
+
+const end_date = new Date(props.end_date);
+const ed = end_date.getDate();
+const em = end_date.getMonth()+1;
+const ey = end_date.getFullYear();
 
 const dispatch = useDispatch();
 const navigate = useNavigate();
@@ -36,7 +41,8 @@ const buttonClickHandler = async () =>{
   </div>
   <div className={style["movie-details"]}>
     <h3 className={style["movie-title"]}>{props.name}</h3>
-    <p className={style["movie-info"]}>Date: {d}/{m}/{y}</p>
+    <p className={style["movie-info"]}>Start Date: {sd}/{sm}/{sy}</p>
+    {/* <p className={style["movie-info"]}>End Date: {ed}/{em}/{ey}</p> */}
     <p className={style["movie-info"]} >Description: {props.description}</p>
   </div>
 </div>

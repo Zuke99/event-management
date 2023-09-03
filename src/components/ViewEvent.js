@@ -81,8 +81,12 @@ function ViewEvent() {
             <p className={`m-0 p-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.description:"..."}</p>
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
-            <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Event Date: "}</h3>
-            <p className={`m-0 p-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.date?.slice(0,10):"..."}</p>
+            <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Start Date: "}</h3>
+            <p className={`m-0 p-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.start_date?.slice(0,10):"..."}</p>
+          </div>
+          <div className='d-flex justify-content-start align-items-start my-3'>
+            <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"End Date: "}</h3>
+            <p className={`m-0 p-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.end_date?.slice(0,10):"..."}</p>
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
             <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Time: "}</h3>
