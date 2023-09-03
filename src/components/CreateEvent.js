@@ -20,6 +20,7 @@ function CreateEvent() {
    
     
     const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
     const [disabled, setDisabled] = useState(false);
@@ -189,8 +190,12 @@ function CreateEvent() {
             category : category,
             posterImage : url,
             date : startDate,
-            start_time : startTime,
-            end_time : endTime,
+            start_time : startTime.toLocaleTimeString('en-US',
+            {timeZone:'IST',hour12:true,hour:'numeric',minute:'numeric'}
+          ),
+            end_time : endTime.toLocaleTimeString('en-US',
+            {timeZone:'IST',hour12:true,hour:'numeric',minute:'numeric'}
+          ),
             venue : venue,
             about : about,
             tags : tags,
@@ -352,11 +357,16 @@ function CreateEvent() {
 
 
         <div className={`form-group row ${style['input-container']}`}>
-        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Event Date</label>
+        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Event Start Date</label>
         <div className="col-sm-10">
             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} validations={[required]}/>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Event End Date</label>
+    
+            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}validations={[required]}/> 
+             </div>
             </div>
-        </div>
+
 
         <div className={`form-group row ${style['input-container']}`}>
         <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Event Start Time</label>
@@ -417,7 +427,7 @@ function CreateEvent() {
                 value={tagInput}
                 onChange={handleTagInputChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Specify keywords poeple might type to search this Event"
+                placeholder="Specify keywords people might type to search this Event"
             />
             <div className="tags">
                {tags.join(',')}

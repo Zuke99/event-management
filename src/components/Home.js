@@ -106,7 +106,8 @@ function Home() {
               <Card 
               name={e.name} 
               date={e.date}
-              description={e.description}
+              //description={e.description}
+              category={e.category}
               allDetails = {e}
               />
               </div>
