@@ -10,7 +10,7 @@ import event from "../assets/event.jpg";
 import style from "../styling/cssstyling.module.css";
 import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -24,6 +24,8 @@ function Home() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const isLoading = useSelector((state => state.event.isLoading));
+  const [categoryByName, setCategoryByName] = useState();
+  const [filteredButtonClicked, setFilteredButtonClicked] = useState(false);
   useEffect(() => {
     dispatch(fetchEvents());
     localStorage.setItem('navigate',"home");
@@ -43,6 +45,12 @@ function Home() {
   //     });
   // }, [dispatch]);
 
+  const handleCategoryClick = (categoryName) => {
+    setFilteredButtonClicked(true);
+    console.log("category CLicked", categoryName);
+    setCategoryByName(categoryName);
+  }
+
 
   
 
@@ -51,54 +59,66 @@ function Home() {
       <div className="Banner">
         <img src={event} alt="profile-img" className={style["img-banner"]} />
       </div>
+
+
       <div className={style["center-container"]}>
         <h3>Explore Categories</h3>
       </div>
       <div className={style["category-div"]}>
         <div className={style["category-row"]}>
-          <div className={style["category-item-div"]}>
+
+
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Food Festival')}>
             <img src={food} alt="profile-img" className={style["img"]} />
             <span>Food Festival</span>
           </div>
 
-          <div className={style["category-item-div"]}>
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Movies')}>
             <img src={movie} alt="profile-img" className={style["img"]} />
             <span>Movies</span>
           </div>
-          <div className={style["category-item-div"]}>
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('StandUp Comedy')}>
             <img src={comedy} alt="profile-img" className={style["img"]} />
             <span>Standup Comedy</span>
           </div>
-          <div className={style["category-item-div"]}>
+
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Music')}>
             <img src={music} alt="profile-img" className={style["img"]} />
             <span>Music</span>
           </div>
         </div>
 
-        <div className={style["category-row"]}>
-          <div className={style["category-item-div"]}>
+        <div className={style["category-row"]} >
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Sports')}>
             <img src={sports} alt="profile-img" className={style["img"]} />
             <span>Sports</span>
           </div>
-          <div className={style["category-item-div"]}>
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Gaming')}>
             <img src={gaming} alt="profile-img" className={style["img"]} />
             <span>Gaming</span>
           </div>
-          <div className={style["category-item-div"]}>
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Open Mic')}>
             <img src={openmic} alt="profile-img" className={style["img"]} />
             <span>Open Mic</span>
           </div>
-          <div className={style["category-item-div"]}>
+        
+          <div className={`{style["category-item-div"]} ${style["category-hover-effect"]} `} onClick={() =>handleCategoryClick('Workshop')}>
             <img src={workshop} alt="profile-img" className={style["img"]} />
             <span>Workshop</span>
           </div>
+          
         </div>
       </div>
+
+
+
+
+
       <div className="container my-3" >
       <div className='row' >
           
         
-          {!isLoading && state.event.data && state.event.data.data.filter((e) => e.approval === true)
+          {! filteredButtonClicked &&!isLoading && state.event.data && state.event.data.data.filter((e) => (e.approval === true))
           .map((e) => {
             return(
 
@@ -107,6 +127,7 @@ function Home() {
               name={e.name} 
               date={e.date}
               description={e.description}
+              category = {e.category}
               allDetails = {e}
               />
               </div>
@@ -115,6 +136,30 @@ function Home() {
         
       </div>
       </div>
+
+
+      { <div className="container my-3" >
+      <div className='row' >
+          
+        
+          {filteredButtonClicked && !isLoading && state.event.data && state.event.data.data.filter((e) => (e.approval === true && e.category===categoryByName))
+          .map((e) => {
+            return(
+
+              <div className="col-md-3" key={e._id}>
+              <Card 
+              name={e.name} 
+              date={e.date}
+              description={e.description}
+              category = {e.category}
+              allDetails = {e}
+              />
+              </div>
+            );
+          })}
+        
+      </div>
+      </div>}
     </div>
   );
 }

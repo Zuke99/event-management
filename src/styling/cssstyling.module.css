@@ -86,15 +86,25 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center; /* Center items horizontally within each row */
-  gap: 20px;
+  gap: 50px;
+  margin-right: 50px;
 }
 
 .category-item-div {
-  width: calc(25% - 20px); /* Four items with 20px gap */
+  width: calc(25% - 30px); /* Four items with 20px gap */
   padding: 10px;
   border-radius: 10px;
   text-align: center;
+
 }
+/* .category-item-div :hover{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} */
+/* CSS Module */
+.category-hover-effect:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adjust the shadow values as needed */
+}
+
 
 .center-container {
   margin-top: 1%;
@@ -118,6 +128,7 @@
 /*CARD*/
 .movie-card {
   width: 300px;
+  min-height: 560px;
   display: flex;
   flex-direction: column;
   background-color: white;

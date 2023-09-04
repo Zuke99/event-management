@@ -36,7 +36,7 @@ const buttonClickHandler = async () =>{
   <div className={style["movie-details"]}>
     <h3 className={style["movie-title"]}>{props.name}</h3>
     <p className={style["movie-info"]}>Date: {d}/{m}/{y}</p>
-    <p className={style["movie-info"]} >Description: {props.description}</p>
+    <p className={style["movie-info"]} >Category: {props.category}</p>
   </div>
 </div>
     </div>
