@@ -53,7 +53,7 @@ function Navbar() {
 
   return (
     <nav className={style["navbar"]}>
-      <div className={style["navbar-heading"]}>event management</div>
+      <div className={style["navbar-heading"]}>evento</div>
       <ul className={style["navbar-items"]}>
         <li>
           <Link

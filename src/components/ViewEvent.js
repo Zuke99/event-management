@@ -48,6 +48,7 @@ function ViewEvent() {
     
         dispatch(registerEvent(data));
         alert(state.message);
+        navigate("/")
     } else {
      
         dispatch(approveEvent(data))
@@ -120,7 +121,7 @@ function ViewEvent() {
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
             <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Organization: "}</h3>
-            <p className={`m-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.organization:"..."}</p>
+            <p className={`m-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.organisation:"..."}</p>
           </div>
         </div>
         <div className='col-12 m-auto text-center'>

@@ -263,6 +263,8 @@ function CreateEvent() {
                 <svg
                   aria-hidden="true"
                   className="w-10 h-10 mb-3 text-gray-400"
+                  width={50}
+                  height={50}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -430,11 +432,11 @@ function CreateEvent() {
        {/* *************************************************** */}
        <div className="flex justify-center flex-col m-8 ">
       <div>
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
+        <h3 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
           Upload Photo
-        </h2>
+        </h3>
       </div>
-      <div>
+      {/* <div>
         {url && (
           <div>
             Access you file at{" "}
@@ -443,11 +445,12 @@ function CreateEvent() {
             </a>
           </div>
         )}
-      </div>
+      </div> */}
+        <div className={`form-group row ${style['input-container']}`}>
       <div>
         {loading ? (
           <div className="flex items-center justify-center">
-            <img src={assets} alt="upload-event"/>{" "}
+            <img height={50} width={50} src={assets} alt="upload-event"/>{" "}
           </div >
         ) : (
             <div className={`col-sm-10 `}>
@@ -455,10 +458,14 @@ function CreateEvent() {
           </div>
         )}
       </div>
+</div>
+
     </div>
+
        {/* *************************************************** */}
-
-
+       <div className={`form-group row ${style['input-container']}`}>
+ { !loading && url && <img src={url} alt="upload-event" className={style['event-image']}/>}
+ </div>
         {/* <div className={`form-group row ${style['input-container']}`}>
             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Image Upload</label>
             <div className={`col-sm-10 `} >
