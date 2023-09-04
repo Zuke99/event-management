@@ -13,7 +13,17 @@ function ViewEvent() {
     const dispatch = useDispatch();
     const [navigateAbout, setNavigateAbout] = useState(false);
     const [buttonName, setButtonName] = useState("Boot Ticket");
+    const [seats, setSeats] = useState("No Seat Limit");
     const approveState = useSelector((state) => state.event)
+    const viewEvent = localStorage.getItem('viewEvent');
+    let allDetails = JSON.parse(viewEvent);
+    allDetails = allDetails.allDetails;
+
+    const startTimeString = allDetails.start_time;
+    const endTimeString = allDetails.end_time;
+    const startTime = new Date(startTimeString);
+    const endTime = new Date(endTimeString);
+    
     useEffect(() => {
         dispatch(isLoggedIn())
           .unwrap()
@@ -28,17 +38,23 @@ function ViewEvent() {
           if(localStorage.getItem('navigate')==='about'){
             setNavigateAbout(true);
             setButtonName("Approve Event");
-
+          }
+          if(allDetails.seats !== -1){
+              setSeats(allDetails.seats);
           }
 
-        }, [dispatch,navigate]);
+        }, [dispatch,navigate,allDetails.seats]);
 
     const state = useSelector((state) => state.registerEvent);
-    const viewEvent = localStorage.getItem('viewEvent');
+   
+
     
     
-    let allDetails = JSON.parse(viewEvent);
-    allDetails = allDetails.allDetails;
+    
+    const formatTime = (time) => {
+      return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    };
+  
     const onButtonClickHandler = () =>{
       const data = {
         eventId : allDetails._id
@@ -87,7 +103,7 @@ function ViewEvent() {
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
             <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Time: "}</h3>
-            <p className={`m-0 p-0 ms-2 fs-6 fw-normal`}>{` ${allDetails?allDetails?.start_time:"..."} To: ${allDetails?allDetails?.end_time:"..."}`}</p>
+            <p className={`m-0 p-0 ms-2 fs-6 fw-normal`}>{` ${formatTime(startTime)} To: ${formatTime(endTime)}`}</p>
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
             <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Venue: "}</h3>
@@ -113,7 +129,7 @@ function ViewEvent() {
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
             <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Seats Left: "}</h3>
-            <p className={`m-0 ms-2 fs-6 fw-normal`}>{allDetails?allDetails?.seats:"..."}</p>
+            <p className={`m-0 ms-2 fs-6 fw-normal`}>{seats}</p>
           </div>
           <div className='d-flex justify-content-start align-items-start my-3'>
             <h3 className={`fs-5 m-0 p-0 fw-bolder ${styles["event-head1"]}`}>{"Event Owner: "}</h3>
