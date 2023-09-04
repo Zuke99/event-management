@@ -189,8 +189,12 @@ function CreateEvent() {
             category : category,
             posterImage : url,
             date : startDate,
-            start_time : startTime,
-            end_time : endTime,
+            start_time : startTime.toLocaleTimeString('en-US',
+            {timeZone:'IST',hour12:true,hour:'numeric',minute:'numeric'}
+          ),
+            end_time : endTime.toLocaleTimeString('en-US',
+            {timeZone:'IST',hour12:true,hour:'numeric',minute:'numeric'}
+          ),
             venue : venue,
             about : about,
             tags : tags,
