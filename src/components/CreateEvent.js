@@ -464,7 +464,7 @@ function CreateEvent() {
 
        {/* *************************************************** */}
        <div className={`form-group row ${style['input-container']}`}>
- { !loading && <img src={url} alt="upload-event" className={style['event-image']}/>}
+ { !loading && url && <img src={url} alt="upload-event" className={style['event-image']}/>}
  </div>
         {/* <div className={`form-group row ${style['input-container']}`}>
             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Image Upload</label>

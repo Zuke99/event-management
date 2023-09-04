@@ -1,5 +1,4 @@
 import React from 'react'
-import newevent from "../assets/newevent.jpg";
 import style from  "../styling/cssstyling.module.css";
 import { useDispatch } from 'react-redux';
 import { viewEvent } from '../redux/slice/viewEventSlice';
